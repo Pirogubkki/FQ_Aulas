@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservas de Salones</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>📅 Reservas de Salones</h1>
+
+  <!-- Selector de salón -->
+  <label for="salon">Selecciona un salón:</label>
+  <select id="salon">
+    <option value="A">Salón A</option>
+    <option value="B">Salón B</option>
+    <option value="C">Salón C</option>
+  </select>
+
+  <!-- Calendario -->
+  <div id="calendar"></div>
+
+  <!-- Formulario de solicitud -->
+  <h2>📌 Solicitar uso del salón</h2>
+  <form id="formReserva">
+    <label>Salón:</label>
+    <select id="formSalon" required>
+      <option value="A">Salón A</option>
+      <option value="B">Salón B</option>
+      <option value="C">Salón C</option>
+    </select><br>
+
+    <label>Fecha:</label>
+    <input type="date" id="fecha" required><br>
+
+    <label>Hora inicio:</label>
+    <input type="time" id="horaInicio" required><br>
+
+    <label>Hora fin:</label>
+    <input type="time" id="horaFin" required><br>
+
+    <label>Tipo de reserva:</label>
+    <select id="tipoReserva" required>
+      <option value="unica">Única ocasión</option>
+      <option value="mes">Menos de un mes</option>
+      <option value="semestre">Todo el semestre</option>
+    </select><br>
+
+    <button type="submit">Enviar solicitud</button>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
