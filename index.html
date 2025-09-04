@@ -4,53 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reservas de Salones</title>
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+  <!-- Estilos propios -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>📅 Reservas de Salones</h1>
+<body class="bg-gray-100">
 
-  <!-- Selector de salón -->
-  <label for="salon">Selecciona un salón:</label>
-  <select id="salon">
-    <option value="A">Salón A</option>
-    <option value="B">Salón B</option>
-    <option value="C">Salón C</option>
-  </select>
+  <div class="p-6 max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6 text-center">Sistema de Reservas de Salones</h1>
 
-  <!-- Calendario -->
-  <div id="calendar"></div>
+    <!-- Tabs de salones -->
+    <div class="mb-4 flex space-x-2">
+      <button class="tab-btn bg-blue-600 text-white px-4 py-2 rounded-lg" data-salon="Laboratorio 1">Laboratorio 1</button>
+      <button class="tab-btn bg-gray-300 px-4 py-2 rounded-lg" data-salon="Laboratorio 2">Laboratorio 2</button>
+      <button class="tab-btn bg-gray-300 px-4 py-2 rounded-lg" data-salon="Salón de usos múltiples">Salón de usos múltiples</button>
+    </div>
 
-  <!-- Formulario de solicitud -->
-  <h2>📌 Solicitar uso del salón</h2>
-  <form id="formReserva">
-    <label>Salón:</label>
-    <select id="formSalon" required>
-      <option value="A">Salón A</option>
-      <option value="B">Salón B</option>
-      <option value="C">Salón C</option>
-    </select><br>
+    <div class="grid grid-cols-3 gap-6">
+      <!-- Calendario -->
+      <div class="col-span-2 bg-white p-4 rounded-2xl shadow-lg">
+        <div id="calendar"></div>
+      </div>
 
-    <label>Fecha:</label>
-    <input type="date" id="fecha" required><br>
+      <!-- Formulario -->
+      <div class="col-span-1 bg-white p-4 rounded-2xl shadow-lg">
+        <h2 class="text-xl font-semibold mb-4">Solicitud de Reserva</h2>
+        <form id="reservaForm" class="space-y-4">
+          <label class="block">
+            <span class="text-gray-700">Nombre</span>
+            <input type="text" name="nombre" required class="mt-1 block w-full border rounded p-2">
+          </label>
 
-    <label>Hora inicio:</label>
-    <input type="time" id="horaInicio" required><br>
+          <label class="block">
+            <span class="text-gray-700">Salón</span>
+            <select name="salon" id="salonSelect" class="mt-1 block w-full border rounded p-2"></select>
+          </label>
 
-    <label>Hora fin:</label>
-    <input type="time" id="horaFin" required><br>
+          <label class="block">
+            <span class="text-gray-700">Fecha y Hora</span>
+            <input type="datetime-local" name="fecha" required class="mt-1 block w-full border rounded p-2">
+          </label>
 
-    <label>Tipo de reserva:</label>
-    <select id="tipoReserva" required>
-      <option value="unica">Única ocasión</option>
-      <option value="mes">Menos de un mes</option>
-      <option value="semestre">Todo el semestre</option>
-    </select><br>
+          <label class="block">
+            <span class="text-gray-700">Motivo</span>
+            <textarea name="motivo" rows="3" class="mt-1 block w-full border rounded p-2"></textarea>
+          </label>
 
-    <button type="submit">Enviar solicitud</button>
-  </form>
+          <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">
+            Enviar Solicitud
+          </button>
+        </form>
+        <p id="statusMsg" class="mt-4 text-sm text-gray-600"></p>
+      </div>
+    </div>
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.js"></script>
-  <script src="script.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
