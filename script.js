@@ -1,56 +1,67 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const calendarEl = document.getElementById('calendar');
+document.addEventListener("DOMContentLoaded", function () {
+  const calendarEl = document.getElementById("calendar");
+  let currentSalon = "Laboratorio 1"; // Salón por defecto
+  let calendar;
 
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'timeGridWeek',
-    locale: 'es',
-    allDaySlot: false,
-    slotMinTime: "07:00:00",
-    slotMaxTime: "21:00:00",
-    events: [
-      {
-        title: 'Clase Matemáticas',
-        start: '2025-09-01T09:00:00',
-        end: '2025-09-01T11:00:00',
-        color: 'blue' // Todo el semestre
-      },
-      {
-        title: 'Conferencia',
-        start: '2025-09-02T15:00:00',
-        end: '2025-09-02T17:00:00',
-        color: 'green' // Única ocasión
-      }
-    ]
-  });
+  // Inicializar calendario
+  function initCalendar(events) {
+    if (calendar) calendar.destroy();
 
-  calendar.render();
-
-  // Manejo del formulario
-  document.getElementById('formReserva').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const salon = document.getElementById('formSalon').value;
-    const fecha = document.getElementById('fecha').value;
-    const horaInicio = document.getElementById('horaInicio').value;
-    const horaFin = document.getElementById('horaFin').value;
-    const tipo = document.getElementById('tipoReserva').value;
-
-    // Asignar color según tipo
-    let color = 'gray';
-    if (tipo === 'unica') color = 'green';
-    if (tipo === 'mes') color = 'orange';
-    if (tipo === 'semestre') color = 'blue';
-
-    // Agregar al calendario
-    calendar.addEvent({
-      title: `Reserva ${salon}`,
-      start: `${fecha}T${horaInicio}`,
-      end: `${fecha}T${horaFin}`,
-      color: color
+    calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: "timeGridWeek",
+      locale: "es",
+      slotMinTime: "07:00:00",
+      slotMaxTime: "22:00:00",
+      events: events.filter(e => e.salon === currentSalon),
     });
 
-    alert(`Solicitud enviada para el salón ${salon} el ${fecha}.`);
+    calendar.render();
+  }
 
-    this.reset();
+  // Cargar eventos desde JSON
+  fetch("events.json")
+    .then(res => res.json())
+    .then(data => {
+      initCalendar(data);
+
+      // Llenar select del formulario
+      const salonSelect = document.getElementById("salonSelect");
+      const salones = [...new Set(data.map(e => e.salon))];
+      salones.forEach(s => {
+        const option = document.createElement("option");
+        option.value = s;
+        option.textContent = s;
+        salonSelect.appendChild(option);
+      });
+
+      // Manejo de pestañas
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active", "bg-blue-600", "text-white"));
+          btn.classList.add("active", "bg-blue-600", "text-white");
+          currentSalon = btn.dataset.salon;
+          initCalendar(data);
+        });
+      });
+
+      // Formulario de reserva -> Google Sheets
+      document.getElementById("reservaForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const payload = Object.fromEntries(formData.entries());
+
+        // Enviar a Google Apps Script (crear script web en Google Sheets)
+        fetch("TU_URL_DE_GOOGLE_APPS_SCRIPT", {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }).then(() => {
+          document.getElementById("statusMsg").textContent = "Solicitud enviada. Espera aprobación.";
+          this.reset();
+        });
+      });
+    });
+});
   });
 });
