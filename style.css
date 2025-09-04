@@ -1,5 +1,8 @@
-/* Estilos adicionales */
 .tab-btn.active {
-  background-color: #2563eb; /* azul */
-  color: white;
+  background-color: #2563eb; 
+  color: white; 
+
+  #calendar { 
+    height: 700px;
+  }
 }
