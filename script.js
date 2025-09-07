@@ -13,25 +13,30 @@ function renderSidebarButtons(horarios) {
   const divLab = document.getElementById('lista-laboratorios');
   const divUsos = document.getElementById('lista-usos');
   divSal.innerHTML = ""; divLab.innerHTML = ""; divUsos.innerHTML = "";
+
   salones.forEach(nombre => {
     const btn = document.createElement('button');
     btn.textContent = nombre;
+    btn.className = "sidebar-btn";
     btn.onclick = ()=>selectEspacio(nombre, btn);
     divSal.appendChild(btn);
   });
   labs.forEach(nombre => {
     const btn = document.createElement('button');
     btn.textContent = nombre;
+    btn.className = "sidebar-btn";
     btn.onclick = ()=>selectEspacio(nombre, btn);
     divLab.appendChild(btn);
   });
   usos.forEach(nombre => {
     const btn = document.createElement('button');
     btn.textContent = nombre;
+    btn.className = "sidebar-btn";
     btn.onclick = ()=>selectEspacio(nombre, btn);
     divUsos.appendChild(btn);
   });
 }
+
 function convertirADatosEventos(nombre, horariosSalon) {
   const eventos = [];
   dias.forEach(dia => {
