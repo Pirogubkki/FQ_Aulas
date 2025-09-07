@@ -1,92 +1,112 @@
-const DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-const H_INICIO = 8, H_FIN = 20; // 8am to 8pm
+const dias = ["Lunes","Martes","Miércoles","Jueves","Viernes"];
+const horas = Array.from({length:13},(_,i)=>8+i); // 8:00 - 20:00
 
-function timeToMinutes(str) {
-  const [h, m] = str.split(":").map(Number);
-  return h * 60 + m;
-}
-function minutesToHHMM(mins) {
-  const h = Math.floor(mins / 60).toString().padStart(2, "0");
-  const m = (mins % 60).toString().padStart(2, "0");
-  return `${h}:${m}`;
-}
-function getHalfHourRows() {
-  let rows = [];
-  for (let m = H_INICIO * 60; m < H_FIN * 60; m += 30) {
-    rows.push({ start: m, end: m + 30 });
-  }
-  return rows;
-}
-
-let horarios = {};
-fetch('horarios.json')
-  .then(r => r.json())
-  .then(data => {
-    horarios = data;
-    cargarSubmenuSalones();
-    mostrarHorarioDeSalon("Salón 1");
-  });
-
-function cargarSubmenuSalones() {
-  const submenu = document.getElementById('submenu-salones');
-  submenu.innerHTML = '';
-  Object.keys(horarios).forEach(salon => {
-    const btn = document.createElement('button');
-    btn.textContent = salon;
-    btn.onclick = () => {
-      document.querySelectorAll('.submenu-salones button').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      mostrarHorarioDeSalon(salon);
-    };
-    if(salon==="Salón 1") btn.classList.add('active');
-    submenu.appendChild(btn);
-  });
-}
-
-function mostrarHorarioDeSalon(salon) {
-  const horario = horarios[salon];
-  const tablaDiv = document.getElementById('horario-salon');
-  tablaDiv.innerHTML = "";
-
-  const rows = getHalfHourRows();
-  let tabla = `<div class="horario-tabla"><table><thead><tr><th>Hora</th>`;
-  for(let dia of DIAS) tabla += `<th>${dia}</th>`;
-  tabla += `</tr></thead><tbody>`;
-
-  // Map for row/colspan logic
-  let cellOccupied = {};
-  for (let dia of DIAS) cellOccupied[dia] = Array(rows.length).fill(false);
-
-  for (let i = 0; i < rows.length; i++) {
-    let { start, end } = rows[i];
-    let horaLabel = `${minutesToHHMM(start)} - ${minutesToHHMM(end)}`;
-    tabla += `<tr><td>${horaLabel}</td>`;
-
-    for (let dia of DIAS) {
-      if (cellOccupied[dia][i]) { tabla += ""; continue; }
-
-      // Find class starting in this slot
-      const clases = horario[dia] || [];
-      const clase = clases.find(c => timeToMinutes(c.inicio) === start);
-
-      if (clase) {
-        const ini = timeToMinutes(clase.inicio), fin = timeToMinutes(clase.fin);
-        let rowspan = Math.max(1, Math.round((fin - ini) / 30));
-        // Mark rows as occupied
-        for (let j = 1; j < rowspan; j++) cellOccupied[dia][i + j] = true;
-        let claseExtra = clase.tipo && clase.tipo.toLowerCase() === "extraordinaria" ? "extraordinaria" : "";
-        tabla += `<td rowspan="${rowspan}" style="position:relative;vertical-align:middle;">
-          <div class="bloque-clase ${claseExtra}">
-            <b>${clase.materia}</b>
-            <div style="font-size:12px">${clase.inicio} - ${clase.fin}</div>
-          </div>
-        </td>`;
-      } else {
-        tabla += `<td></td>`;
-      }
+// Convierte los datos del horario de un salón al formato de eventos
+function convertirSalonADatosEventos(nombreSalon, horariosSalon) {
+  const eventos = [];
+  dias.forEach(dia => {
+    if (horariosSalon[dia]) {
+      horariosSalon[dia].forEach(clase => {
+        eventos.push({
+          dia: dia,
+          inicio: clase.inicio,
+          fin: clase.fin,
+          materia: clase.materia
+        });
+      });
     }
-    tabla += `</tr>`;
-  }
-  tabla += `</tbody></table></div>`;
-  tablaDiv.innerHTML = tabla;
+  });
+  return eventos;
 }
+
+// Renderiza todos los salones desde el JSON
+function renderizarTodosLosSalones(horarios) {
+  const contSalones = document.getElementById('contenedor-salones');
+  contSalones.innerHTML = "";
+  Object.keys(horarios).forEach(nombreSalon => {
+    if (!nombreSalon.toLowerCase().startsWith("salón")) return;
+    const h3 = document.createElement("h3");
+    h3.textContent = nombreSalon;
+    contSalones.appendChild(h3);
+
+    const divCal = document.createElement("div");
+    divCal.id = `cal-${nombreSalon.replace(/\s+/g, '').toLowerCase()}`;
+    contSalones.appendChild(divCal);
+
+    const eventos = convertirSalonADatosEventos(nombreSalon, horarios[nombreSalon]);
+    renderCalendario(divCal.id, eventos);
+  });
+}
+
+// Función para renderizar un calendario
+function renderCalendario(id, data) {
+  const cont = document.getElementById(id);
+  if(!cont) return;
+
+  cont.innerHTML = "";
+  cont.className = "calendario";
+
+  // Celda vacía arriba izquierda
+  cont.appendChild(document.createElement("div"));
+
+  // Encabezados de días
+  dias.forEach(d => {
+    const diaHead = document.createElement("div");
+    diaHead.textContent = d;
+    diaHead.className = "dia-header";
+    cont.appendChild(diaHead);
+  });
+
+  // Filas de horas
+  horas.forEach(h => {
+    // Columna de hora
+    const horaDiv = document.createElement("div");
+    horaDiv.textContent = `${h}:00`;
+    horaDiv.className = "hora";
+    cont.appendChild(horaDiv);
+
+    // Celdas vacías
+    dias.forEach(() => {
+      const celda = document.createElement("div");
+      cont.appendChild(celda);
+    });
+  });
+
+  // Render de eventos
+  data.forEach((ev, idx) => {
+    const diaIndex = dias.indexOf(ev.dia) + 2; // col (1=hora, 2-6=días)
+    const inicio = parseFloat(ev.inicio.replace(":30",".5").replace(":00",".0"));
+    const fin = parseFloat(ev.fin.replace(":30",".5").replace(":00",".0"));
+
+    const rowStart = Math.floor((inicio-8)*2)+2; 
+    const duration = (fin - inicio)*2;
+
+    const evento = document.createElement("div");
+    evento.className = `evento color-${(idx % 5)+1}`;
+    evento.style.gridColumn = diaIndex;
+    evento.style.gridRow = `${rowStart} / span ${duration}`;
+    evento.textContent = ev.materia;
+
+    cont.appendChild(evento);
+  });
+}
+
+// Tabs
+function openTab(tabName) {
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  document.getElementById(tabName).classList.add("active");
+
+  document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+  document.querySelector(`.tabs button[data-tab='${tabName}']`).classList.add("active");
+}
+
+// Carga horarios.json y muestra los calendarios
+fetch('horarios.json')
+  .then(resp => resp.json())
+  .then(horarios => {
+    renderizarTodosLosSalones(horarios);
+    // Aquí puedes agregar lógica para laboratorios y usos múltiples si lo deseas
+  })
+  .catch(e => {
+    console.error("Error cargando horarios.json", e);
+  });
