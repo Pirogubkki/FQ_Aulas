@@ -5,9 +5,12 @@ function closeSolicitud() {
   document.getElementById('modal-solicitud-bg').classList.remove('active');
 }
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('modal-solicitud-bg').onclick = function(e) {
-    if (e.target === this) closeSolicitud();
-  };
+  const modalBg = document.getElementById('modal-solicitud-bg');
+  if(modalBg) {
+    modalBg.onclick = function(e) {
+      if (e.target === this) closeSolicitud();
+    };
+  }
 });
 
 // Tabs logic
