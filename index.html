@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <title>Horarios de Salones</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <aside class="sidebar">
     <h2>Solicitud de salón</h2>
-    <form action="https://formspree.io/f/tu-endpoint" method="POST">
-      <label>Nombre:</label>
+    <form action="https://formspree.io/f/tu-endpoint" method="POST" class="formulario">
+      <label>Nombre</label>
       <input type="text" name="nombre" required>
       
-      <label>Email:</label>
+      <label>Email</label>
       <input type="email" name="email" required>
       
-      <label>Salón:</label>
+      <label>Salón</label>
       <select name="salon">
         <option>Salón 1</option>
         <option>Salón 2</option>
@@ -36,7 +37,7 @@
         <option>Salón 17</option>
       </select>
       
-      <label>Motivo:</label>
+      <label>Motivo</label>
       <textarea name="motivo" required></textarea>
       
       <button type="submit">Enviar solicitud</button>
@@ -44,7 +45,7 @@
   </aside>
 
   <main class="content">
-    <h1>Horarios de Salones</h1>
+    <h1>📅 Horarios de Salones</h1>
     <div id="tabs"></div>
     <div id="calendar"></div>
   </main>
