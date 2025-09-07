@@ -1,5 +1,6 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,400,700,500,600,300&display=swap");
 body {
-  font-family: "Cal Sans", sans-serif;
+  font-family: "Clash Grotesk", sans-serif;
   margin: 0;
   background: #fcfcfb;
 }
