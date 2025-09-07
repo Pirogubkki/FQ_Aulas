@@ -1,3 +1,15 @@
+function openSolicitud() {
+  document.getElementById('modal-solicitud-bg').classList.add('active');
+}
+function closeSolicitud() {
+  document.getElementById('modal-solicitud-bg').classList.remove('active');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('modal-solicitud-bg').onclick = function(e) {
+    if (e.target === this) closeSolicitud();
+  };
+});
+
 // Tabs logic
 function openTab(tabName) {
   document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
