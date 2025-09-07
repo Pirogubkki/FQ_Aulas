@@ -1,16 +1,4 @@
-@import url("https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,400,700,500,600,300&display=swap");
-.open-modal-btn {
-  position: absolute;
-  top: 22px;
-  right: 38px;
-  background: #8cc38a;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 1em;
-}
+
 
 /* Modal Solicitud */
 .modal-bg {
