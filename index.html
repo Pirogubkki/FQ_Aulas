@@ -2,22 +2,111 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Horarios Facultad</title>
+  <title>Horarios de los salones agosto-diciembre 2025</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="main-header">
+    <h1>Horarios de los salones agosto-diciembre 2025</h1>
+    <button class="open-sidebar-btn" onclick="openSidebar()">Solicitar espacio</button>
+  </header>
 
-<div class="tabs">
-  <button class="active" data-tab="salones" onclick="openTab('salones')">Salones</button>
-  <button data-tab="laboratorios" onclick="openTab('laboratorios')">Laboratorios</button>
-  <button data-tab="usos" onclick="openTab('usos')">Usos Múltiples</button>
-</div>
+  <!-- Leyenda de colores -->
+  <div class="leyenda">
+    <div class="leyenda-item">
+      <span class="cuadro verde"></span> clase semestral
+    </div>
+    <div class="leyenda-item">
+      <span class="cuadro rosa"></span> clase extraordinaria
+    </div>
+  </div>
 
+  <!-- Tabs de categorías -->
+  <div class="tabs">
+    <button class="active" data-tab="salones" onclick="openTab('salones')">Salones</button>
+    <button data-tab="laboratorios" onclick="openTab('laboratorios')">Laboratorios</button>
+    <button data-tab="usos" onclick="openTab('usos')">Salón de Usos Múltiples</button>
+  </div>
 
-<footer style="text-align:center; padding:20px; font-size:14px; color:#666;">
-  Contacto: Instagram <b>@Poolkiin</b>
-</footer>
+  <!-- Contenido de cada tab -->
+  <div id="salones" class="tab-content active">
+    <h2>Salones</h2>
+    <div id="contenedor-salones"></div>
+  </div>
 
-<script src="script.js"></script>
+  <div id="laboratorios" class="tab-content">
+    <h2>Laboratorios</h2>
+    <div id="contenedor-laboratorios"></div>
+  </div>
+
+  <div id="usos" class="tab-content">
+    <h2>Salón de Usos Múltiples</h2>
+    <div id="contenedor-usos"></div>
+  </div>
+
+  <!-- Sidebar modal para solicitud -->
+  <div id="sidebar-bg" class="sidebar-bg">
+    <div id="sidebar" class="sidebar">
+      <button class="close-btn" onclick="closeSidebar()">×</button>
+      <h2>Apartar un salón</h2>
+      <form id="my-form" action="https://formspree.io/f/meolvgrk" method="POST">
+        <label>Email:</label>
+        <input type="email" name="email" required />
+        <label>Mensaje:</label>
+        <input type="text" name="message" required />
+        <button id="my-form-button" type="submit">Enviar</button>
+        <p id="my-form-status"></p>
+      </form>
+    </div>
+  </div>
+
+  <footer style="text-align:center; padding:20px; font-size:14px; color:#666;">
+    Contacto: Instagram <b>@Poolkiin</b>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Lógica para el modal
+    function openSidebar() {
+      document.getElementById('sidebar-bg').style.display = 'flex';
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar-bg').style.display = 'none';
+    }
+    // Cierra el modal al hacer click fuera
+    document.getElementById('sidebar-bg').onclick = function(e) {
+      if (e.target === this) closeSidebar();
+    }
+    // Manejo básico del form (opcional)
+    const form = document.getElementById("my-form");
+    if(form){
+      async function handleSubmit(event) {
+        event.preventDefault();
+        var status = document.getElementById("my-form-status");
+        var data = new FormData(event.target);
+        fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        }).then(response => {
+          if (response.ok) {
+            status.innerHTML = "¡Gracias por tu solicitud!";
+            form.reset()
+          } else {
+            response.json().then(data => {
+              if (Object.hasOwn(data, 'errors')) {
+                status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+              } else {
+                status.innerHTML = "Oops! Hubo un problema al enviar tu formulario"
+              }
+            })
+          }
+        }).catch(error => {
+          status.innerHTML = "Oops! Hubo un problema al enviar tu formulario"
+        });
+      }
+      form.addEventListener("submit", handleSubmit)
+    }
+  </script>
 </body>
 </html>
