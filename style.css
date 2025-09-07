@@ -12,7 +12,7 @@ body {
 }
 .main-header h1 {
   font-size: 2em;
-  font-weight: bold;
+  font-weight: italic;
   color: #2d4b2e;
 }
 
@@ -135,7 +135,7 @@ body {
 .horario-tabla th {
   background: #8cc38a;
   color: #fff;
-  font-weight: bold;
+  font-weight: italic;
   height: 36px;
   letter-spacing: 1px;
 }
