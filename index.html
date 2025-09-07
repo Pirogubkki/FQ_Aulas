@@ -2,52 +2,59 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Horarios de Salones</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM_Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Sidebar -->
   <aside class="sidebar">
-    <h2>Solicitud de salón</h2>
-    <form action="https://formspree.io/f/tu-endpoint" method="POST" class="formulario">
-      <label>Nombre</label>
+    <h2>Solicitud de Salón</h2>
+    <form action="https://formspree.io/f/mnqedzkp" method="POST">
+      <label>Nombre:</label>
       <input type="text" name="nombre" required>
-      
-      <label>Email</label>
+
+      <label>Correo:</label>
       <input type="email" name="email" required>
-      
-      <label>Salón</label>
-      <select name="salon">
+
+      <label>Salón:</label>
+      <select name="salon" required>
+        <option value="">Seleccione...</option>
         <option>Salón 1</option>
         <option>Salón 2</option>
         <option>Salón 3</option>
-        <option>Salón 4</option>
-        <option>Salón 5</option>
-        <option>Salón 6</option>
-        <option>Salón 7</option>
-        <option>Salón 8</option>
-        <option>Salón 9</option>
-        <option>Salón 10</option>
-        <option>Salón 11</option>
-        <option>Salón 12</option>
-        <option>Salón 13</option>
-        <option>Salón 14</option>
-        <option>Salón 15</option>
-        <option>Salón 16</option>
+        <!-- hasta el 17 -->
         <option>Salón 17</option>
       </select>
-      
-      <label>Motivo</label>
-      <textarea name="motivo" required></textarea>
-      
+
+      <label>Fecha y Hora:</label>
+      <input type="datetime-local" name="fecha" required>
+
+      <label>Comentarios:</label>
+      <textarea name="comentarios"></textarea>
+
       <button type="submit">Enviar solicitud</button>
     </form>
   </aside>
 
-  <main class="content">
-    <h1>📅 Horarios de Salones</h1>
-    <div id="tabs"></div>
-    <div id="calendar"></div>
+  <!-- Contenido principal -->
+  <main>
+    <h1>Horarios de los Salones</h1>
+
+    <section class="horario">
+      <h2>Salón 1</h2>
+      <div class="calendario" id="salon1"></div>
+    </section>
+
+    <section class="horario">
+      <h2>Salón 2</h2>
+      <div class="calendario" id="salon2"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Contacto: <a href="https://instagram.com/Poolkiin" target="_blank">@Poolkiin</a></p>
+    </footer>
   </main>
 
   <script src="script.js"></script>
