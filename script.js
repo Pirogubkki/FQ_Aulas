@@ -2,39 +2,57 @@ const dias = ["Lunes","Martes","Miércoles","Jueves","Viernes"];
 const horas = Array.from({length:13},(_,i)=>8+i); // 8:00 - 20:00
 
 let horariosJSON = null;
-let botonActivo = null;
+let activeTab = 'salones';
+let activeButton = null;
 
-function renderSidebarButtons(horarios) {
-  // Salones
-  const salones = Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('salón'));
-  const labs = Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('laboratorio'));
-  const usos = Object.keys(horarios).filter(k=>k.toLowerCase().includes('usos'));
-  const divSal = document.getElementById('lista-salones');
-  const divLab = document.getElementById('lista-laboratorios');
-  const divUsos = document.getElementById('lista-usos');
-  divSal.innerHTML = ""; divLab.innerHTML = ""; divUsos.innerHTML = "";
+function openTab(tab) {
+  activeTab = tab;
+  // Tabs
+  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`.tab-btn[data-tab='${tab}']`).classList.add("active");
+  // Submenus
+  document.getElementById("submenu-salones").style.display = tab === "salones" ? "" : "none";
+  document.getElementById("submenu-laboratorios").style.display = tab === "laboratorios" ? "" : "none";
+  document.getElementById("submenu-usos").style.display = tab === "usos" ? "" : "none";
+  // Clear center
+  document.getElementById("horario-espacio").innerHTML = `<p style="color:#888; text-align:center; margin-top:40px;">Select a space from the submenu.</p>`;
+  if (activeButton) activeButton.classList.remove('active');
+  activeButton = null;
+}
 
+function renderSubmenus(horarios) {
+  // Salones submenu
+  const submenuSalones = document.getElementById('submenu-salones');
+  submenuSalones.innerHTML = '';
+  let salones = Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('salón')).slice(0,12);
   salones.forEach(nombre => {
     const btn = document.createElement('button');
     btn.textContent = nombre;
-    btn.className = "sidebar-btn";
-    btn.onclick = ()=>selectEspacio(nombre, btn);
-    divSal.appendChild(btn);
+    btn.onclick = () => showSchedule(nombre, btn);
+    submenuSalones.appendChild(btn);
   });
+
+  // Laboratorios submenu
+  const submenuLabs = document.getElementById('submenu-laboratorios');
+  submenuLabs.innerHTML = '';
+  let labs = Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('laboratorio')).slice(0,4);
   labs.forEach(nombre => {
     const btn = document.createElement('button');
     btn.textContent = nombre;
-    btn.className = "sidebar-btn";
-    btn.onclick = ()=>selectEspacio(nombre, btn);
-    divLab.appendChild(btn);
+    btn.onclick = () => showSchedule(nombre, btn);
+    submenuLabs.appendChild(btn);
   });
-  usos.forEach(nombre => {
+
+  // Usos multiples (one button)
+  const submenuUsos = document.getElementById('submenu-usos');
+  submenuUsos.innerHTML = '';
+  let usos = Object.keys(horarios).filter(k=>k.toLowerCase().includes('usos'));
+  if(usos.length > 0) {
     const btn = document.createElement('button');
-    btn.textContent = nombre;
-    btn.className = "sidebar-btn";
-    btn.onclick = ()=>selectEspacio(nombre, btn);
-    divUsos.appendChild(btn);
-  });
+    btn.textContent = usos[0];
+    btn.onclick = () => showSchedule(usos[0], btn);
+    submenuUsos.appendChild(btn);
+  }
 }
 
 function convertirADatosEventos(nombre, horariosSalon) {
@@ -57,11 +75,11 @@ function renderCalendario(id, data, nombre) {
   const cont = document.getElementById(id);
   cont.innerHTML = "";
   cont.className = "horario-container";
-  // Titulo
+  // Title
   const tit = document.createElement("h2");
   tit.textContent = nombre;
   cont.appendChild(tit);
-  // Tabla
+  // Table
   const cal = document.createElement("div");
   cal.className = "calendario";
   cont.appendChild(cal);
@@ -96,15 +114,15 @@ function renderCalendario(id, data, nombre) {
     cal.appendChild(evento);
   });
 }
-function selectEspacio(nombre, btn) {
-  if(botonActivo) botonActivo.classList.remove('active');
+function showSchedule(nombre, btn) {
+  if(activeButton) activeButton.classList.remove('active');
   btn.classList.add('active');
-  botonActivo = btn;
+  activeButton = btn;
   const eventos = convertirADatosEventos(nombre, horariosJSON[nombre]);
   renderCalendario('horario-espacio', eventos, nombre);
 }
 
-// Formulario
+// Form
 const form = document.getElementById("my-form");
 if(form){
   async function handleSubmit(event) {
@@ -124,12 +142,12 @@ if(form){
           if (Object.hasOwn(data, 'errors')) {
             status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
           } else {
-            status.innerHTML = "Oops! Hubo un problema al enviar tu formulario"
+            status.innerHTML = "Oops! There was a problem sending your form"
           }
         })
       }
     }).catch(error => {
-      status.innerHTML = "Oops! Hubo un problema al enviar tu formulario"
+      status.innerHTML = "Oops! There was a problem sending your form"
     });
   }
   form.addEventListener("submit", handleSubmit)
@@ -139,5 +157,10 @@ fetch('horarios.json')
   .then(r=>r.json())
   .then(data=>{
     horariosJSON = data;
-    renderSidebarButtons(horariosJSON);
+    renderSubmenus(horariosJSON);
   });
+
+// Default show salones submenu
+window.onload = function() {
+  openTab('salones');
+};
