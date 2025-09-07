@@ -1,78 +1,4 @@
 
-
-/* Modal Solicitud */
-.modal-bg {
-  position: fixed;
-  top: 0; left: 0; right:0; bottom:0;
-  display: none;
-  background: rgba(0,0,0,0.14);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-.modal-bg.active {
-  display: flex;
-}
-.modal-solicitud {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 8px 32px #0002;
-  padding: 18px 22px 18px 22px;
-  max-width: 290px;
-  width: 95vw;
-  position: relative;
-  animation: popup .18s;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-@keyframes popup {
-  0% { transform:scale(.95); opacity:.4; }
-  100% { transform:scale(1); opacity:1; }
-}
-.close-modal-btn {
-  position: absolute;
-  right: 9px;
-  top: 9px;
-  font-size: 1.3em;
-  background: none;
-  border: none;
-  color: #8cc38a;
-  cursor: pointer;
-}
-.modal-solicitud h2 {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  color: #2d4b2e;
-}
-.modal-solicitud label {
-  margin-top: 4px;
-  font-weight: 500;
-  color: #444;
-  font-size: 14px;
-}
-.modal-solicitud input {
-  margin-bottom: 4px;
-  padding: 5px 9px;
-  border-radius: 5px;
-  border: 1px solid #b3cdb2;
-  font-size: 14px;
-  width: 100%;
-  box-sizing: border-box;
-}
-.modal-solicitud button[type=submit] {
-  margin-top: 7px;
-  background: #8cc38a;
-  color: white;
-  border: none;
-  padding: 7px 0;
-  border-radius: 7px;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-
-
 body {
   font-family: "Varela Round", sans-serif;
   margin: 0;
@@ -239,4 +165,54 @@ body {
   background: rgba(240, 90, 170, 0.3);
   border-color: #f05aaa;
   color: #7c325e;
+}
+
+
+
+
+.open-modal-btn {
+  position: absolute;
+  top: 22px;
+  right: 38px;
+  background: #8cc38a;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+}
+.modal-bg {
+  position: fixed;
+  top: 0; left: 0; right:0; bottom:0;
+  display: none;
+  background: rgba(0,0,0,0.14);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+.modal-bg.active {
+  display: flex;
+}
+.modal-solicitud {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px #0002;
+  padding: 18px 22px 18px 22px;
+  max-width: 290px;
+  width: 95vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.close-modal-btn {
+  position: absolute;
+  right: 9px;
+  top: 9px;
+  font-size: 1.3em;
+  background: none;
+  border: none;
+  color: #8cc38a;
+  cursor: pointer;
 }
