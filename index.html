@@ -4,59 +4,6 @@
   <meta charset="UTF-8">
   <title>Horarios de los salones agosto-diciembre 2025</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Modal Sidebar */
-    .sidebar-bg {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      top:0; left:0; width:100vw; height:100vh;
-      background: rgba(40,40,40,0.3);
-      justify-content: center;
-      align-items: center;
-    }
-    .sidebar-bg.active { display: flex; }
-    .sidebar {
-      background: #f9f9f9;
-      box-shadow: 0 4px 32px #0002;
-      border-radius: 16px;
-      padding: 28px 26px 24px 26px;
-      min-width: 320px;
-      max-width: 94vw;
-      max-height: 96vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 0;
-      animation: popup 0.16s;
-    }
-    @keyframes popup {
-      0% { transform:scale(0.95); opacity:.4; }
-      100% { transform:scale(1); opacity:1; }
-    }
-    .close-btn {
-      position: absolute; right: 10px; top: 10px;
-      font-size: 1.45em;
-      background: none;
-      border: none;
-      color: #8cc38a;
-      cursor: pointer;
-    }
-    .open-sidebar-btn {
-      position: absolute;
-      top: 28px;
-      right: 38px;
-      background: #8cc38a;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      z-index: 1100;
-      font-size: 1em;
-    }
-  </style>
 </head>
 <body>
   <header class="main-header" style="position:relative;">
@@ -84,15 +31,18 @@
   <!-- Contenido de cada tab -->
   <div id="salones" class="tab-content active">
     <h2>Salones</h2>
-    <div id="contenedor-salones"></div>
+    <div id="selector-salones" class="selector"></div>
+    <div id="horario-salon"></div>
   </div>
   <div id="laboratorios" class="tab-content">
     <h2>Laboratorios</h2>
-    <div id="contenedor-laboratorios"></div>
+    <div id="selector-laboratorios" class="selector"></div>
+    <div id="horario-laboratorio"></div>
   </div>
   <div id="usos" class="tab-content">
     <h2>Salón de Usos Múltiples</h2>
-    <div id="contenedor-usos"></div>
+    <div id="selector-usos" class="selector"></div>
+    <div id="horario-usos"></div>
   </div>
 
   <!-- Sidebar modal para solicitud -->
@@ -124,11 +74,10 @@
     function closeSidebar() {
       document.getElementById('sidebar-bg').classList.remove('active');
     }
-    // Cierra el modal al hacer click fuera
     document.getElementById('sidebar-bg').onclick = function(e) {
       if (e.target === this) closeSidebar();
     }
-    // Manejo básico del form (opcional)
+    // Form
     const form = document.getElementById("my-form");
     if(form){
       async function handleSubmit(event) {
