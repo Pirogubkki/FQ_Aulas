@@ -1,7 +1,6 @@
 const dias = ["Lunes","Martes","Miércoles","Jueves","Viernes"];
 const horas = Array.from({length:13},(_,i)=>8+i); // 8:00 - 20:00
 
-// Convierte los datos del horario de un salón al formato de eventos
 function convertirSalonADatosEventos(nombreSalon, horariosSalon) {
   const eventos = [];
   dias.forEach(dia => {
@@ -11,7 +10,8 @@ function convertirSalonADatosEventos(nombreSalon, horariosSalon) {
           dia: dia,
           inicio: clase.inicio,
           fin: clase.fin,
-          materia: clase.materia
+          materia: clase.materia,
+          tipo: clase.tipo || ""
         });
       });
     }
@@ -19,7 +19,6 @@ function convertirSalonADatosEventos(nombreSalon, horariosSalon) {
   return eventos;
 }
 
-// Renderiza todos los salones desde el JSON
 function renderizarTodosLosSalones(horarios) {
   const contSalones = document.getElementById('contenedor-salones');
   contSalones.innerHTML = "";
@@ -36,6 +35,39 @@ function renderizarTodosLosSalones(horarios) {
     const eventos = convertirSalonADatosEventos(nombreSalon, horarios[nombreSalon]);
     renderCalendario(divCal.id, eventos);
   });
+}
+
+function renderizarTodosLosLaboratorios(horarios) {
+  const contLabs = document.getElementById('contenedor-laboratorios');
+  contLabs.innerHTML = "";
+  Object.keys(horarios).forEach(nombreLab => {
+    if (!nombreLab.toLowerCase().startsWith("laboratorio")) return;
+    const h3 = document.createElement("h3");
+    h3.textContent = nombreLab;
+    contLabs.appendChild(h3);
+
+    const divCal = document.createElement("div");
+    divCal.id = `cal-${nombreLab.replace(/\s+/g, '').toLowerCase()}`;
+    contLabs.appendChild(divCal);
+
+    const eventos = convertirSalonADatosEventos(nombreLab, horarios[nombreLab]);
+    renderCalendario(divCal.id, eventos);
+  });
+}
+
+function renderizarUsosMultiples(horarios) {
+  const usos = horarios["Usos Múltiples"] || horarios["Usos multiples"] || horarios["Salón de Usos Múltiples"];
+  const contUsos = document.getElementById('contenedor-usos');
+  contUsos.innerHTML = "";
+  if (!usos) {
+    contUsos.textContent = "No hay horario registrado.";
+    return;
+  }
+  const eventos = convertirSalonADatosEventos("Usos Múltiples", usos);
+  const divCal = document.createElement("div");
+  divCal.id = "cal-usosmultiples";
+  contUsos.appendChild(divCal);
+  renderCalendario(divCal.id, eventos);
 }
 
 // Función para renderizar un calendario
@@ -98,14 +130,21 @@ function openTab(tabName) {
 
   document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
   document.querySelector(`.tabs button[data-tab='${tabName}']`).classList.add("active");
+
+  // Recargar los horarios en el tab correspondiente
+  if (window.__horariosJSON) {
+    if(tabName === "salones") renderizarTodosLosSalones(window.__horariosJSON);
+    if(tabName === "laboratorios") renderizarTodosLosLaboratorios(window.__horariosJSON);
+    if(tabName === "usos") renderizarUsosMultiples(window.__horariosJSON);
+  }
 }
 
 // Carga horarios.json y muestra los calendarios
 fetch('horarios.json')
   .then(resp => resp.json())
   .then(horarios => {
-    renderizarTodosLosSalones(horarios);
-    // Aquí puedes agregar lógica para laboratorios y usos múltiples si lo deseas
+    window.__horariosJSON = horarios;
+    renderizarTodosLosSalones(horarios); // Muestra por defecto
   })
   .catch(e => {
     console.error("Error cargando horarios.json", e);
