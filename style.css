@@ -1,8 +1,65 @@
-.tab-btn.active {
-  background-color: #2563eb; 
-  color: white; 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+}
 
-  #calendar { 
-    height: 700px;
-  }
+.sidebar {
+  width: 280px;
+  background: #f4f4f4;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.content {
+  margin-left: 300px;
+  padding: 20px;
+  flex: 1;
+}
+
+#tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+#tabs button {
+  padding: 8px 12px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#tabs button.active {
+  background: #007BFF;
+  color: white;
+}
+
+#calendar {
+  border: 1px solid #ccc;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 800px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+}
+
+th {
+  background: #007BFF;
+  color: white;
 }
