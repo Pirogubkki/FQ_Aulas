@@ -33,17 +33,7 @@
   <div class="submenu-salones" id="submenu-salones"></div>
   <div id="horario-salon"></div>
 </div>
-
-<div id="laboratorios" class="tab-content">
-  <h2>Laboratorios</h2>
-  <p>Aquí irán los 4 laboratorios</p>
-</div>
-
-<div id="usos" class="tab-content">
-  <h2>Salón de Usos Múltiples</h2>
-  <p>Calendario único aquí.</p>
-</div>
-
+  
 <!-- Sidebar para Formulario -->
 <div id="sidebar" class="sidebar">
   <button class="close-btn" onclick="closeSidebar()">×</button>
@@ -51,10 +41,13 @@
   <form id="my-form" action="https://formspree.io/f/meolvgrk" method="POST">
     <label>Email:</label>
     <input type="email" name="email" required />
-    <label>Escribe el salón, horario, días y el tiempo que quiereas apartar:</label>
+    
+    <label>Salón, horario, días y el tiempo que quiereas apartar:</label>
     <input type="text" name="message" required />
+    
     <button id="my-form-button" type="submit">Submit</button>
     <p id="my-form-status"></p>
+    
   </form>
 </div>
 
