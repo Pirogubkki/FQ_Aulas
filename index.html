@@ -2,125 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calendario de Horarios</title>
+  <title>Horarios Facultad</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2>Solicitud de Espacio</h2>
-    <form action="https://formspree.io/f/mnqedzkp" method="POST">
-      <input type="hidden" name="_replyto" value="hpoolgarcia@icloud.com">
-      <label>Nombre:</label>
-      <input type="text" name="nombre" required>
-      <label>Correo:</label>
-      <input type="email" name="email" required>
-      <label>Espacio:</label>
-      <select name="espacio" required>
-        <option value="">Seleccione...</option>
-        <optgroup label="Salones">
-          <option>Salón 1</option><option>Salón 2</option><option>Salón 3</option>
-          <option>Salón 4</option><option>Salón 5</option><option>Salón 6</option>
-          <option>Salón 7</option><option>Salón 8</option><option>Salón 9</option>
-          <option>Salón 10</option><option>Salón 11</option><option>Salón 12</option>
-        </optgroup>
-        <optgroup label="Laboratorios">
-          <option>Laboratorio 1</option><option>Laboratorio 2</option>
-          <option>Laboratorio 3</option><option>Laboratorio 4</option>
-        </optgroup>
-        <optgroup label="Uso Múltiple">
-          <option>Salón de Usos Múltiples</option>
-        </optgroup>
-      </select>
-      <label>Fecha y Hora:</label>
-      <input type="datetime-local" name="fecha" required>
-      <label>Comentarios:</label>
-      <textarea name="comentarios"></textarea>
-      <button type="submit">Enviar solicitud</button>
-    </form>
-  </aside>
 
-  <!-- Main -->
-  <main>
-    <header>
-      <button class="tab active" data-tab="salones">Salones</button>
-      <button class="tab" data-tab="laboratorios">Laboratorios</button>
-      <button class="tab" data-tab="usos">Usos Múltiples</button>
-    </header>
+<div class="tabs">
+  <button class="active" data-tab="salones" onclick="openTab('salones')">Salones</button>
+  <button data-tab="laboratorios" onclick="openTab('laboratorios')">Laboratorios</button>
+  <button data-tab="usos" onclick="openTab('usos')">Usos Múltiples</button>
+</div>
 
-    <!-- SALONES -->
-    <section id="salones" class="tab-content active">
-      <h2>Salones</h2>
-      <div class="accordion">
-        <!-- Generamos 12 -->
-        <button class="accordion-btn">Salón 1</button>
-        <div class="accordion-panel"><div class="calendario" id="salon1"></div></div>
+<div id="salones" class="tab-content active">
+  <h2>Salones</h2>
+  <h3>Salón 1</h3>
+  <div id="cal-salon1"></div>
+  <h3>Salón 2</h3>
+  <div id="cal-salon2"></div>
+</div>
 
-        <button class="accordion-btn">Salón 2</button>
-        <div class="accordion-panel"><div class="calendario" id="salon2"></div></div>
+<div id="laboratorios" class="tab-content">
+  <h2>Laboratorios</h2>
+  <p>Aquí irán los 4 laboratorios</p>
+</div>
 
-        <button class="accordion-btn">Salón 3</button>
-        <div class="accordion-panel"><div class="calendario" id="salon3"></div></div>
+<div id="usos" class="tab-content">
+  <h2>Salón de Usos Múltiples</h2>
+  <p>Calendario único aquí.</p>
+</div>
 
-        <button class="accordion-btn">Salón 4</button>
-        <div class="accordion-panel"><div class="calendario" id="salon4"></div></div>
+<footer style="text-align:center; padding:20px; font-size:14px; color:#666;">
+  Contacto: Instagram <b>@Poolkiin</b>
+</footer>
 
-        <button class="accordion-btn">Salón 5</button>
-        <div class="accordion-panel"><div class="calendario" id="salon5"></div></div>
-
-        <button class="accordion-btn">Salón 6</button>
-        <div class="accordion-panel"><div class="calendario" id="salon6"></div></div>
-
-        <button class="accordion-btn">Salón 7</button>
-        <div class="accordion-panel"><div class="calendario" id="salon7"></div></div>
-
-        <button class="accordion-btn">Salón 8</button>
-        <div class="accordion-panel"><div class="calendario" id="salon8"></div></div>
-
-        <button class="accordion-btn">Salón 9</button>
-        <div class="accordion-panel"><div class="calendario" id="salon9"></div></div>
-
-        <button class="accordion-btn">Salón 10</button>
-        <div class="accordion-panel"><div class="calendario" id="salon10"></div></div>
-
-        <button class="accordion-btn">Salón 11</button>
-        <div class="accordion-panel"><div class="calendario" id="salon11"></div></div>
-
-        <button class="accordion-btn">Salón 12</button>
-        <div class="accordion-panel"><div class="calendario" id="salon12"></div></div>
-      </div>
-    </section>
-
-    <!-- LABORATORIOS -->
-    <section id="laboratorios" class="tab-content">
-      <h2>Laboratorios</h2>
-      <div class="accordion">
-        <button class="accordion-btn">Laboratorio 1</button>
-        <div class="accordion-panel"><div class="calendario" id="lab1"></div></div>
-
-        <button class="accordion-btn">Laboratorio 2</button>
-        <div class="accordion-panel"><div class="calendario" id="lab2"></div></div>
-
-        <button class="accordion-btn">Laboratorio 3</button>
-        <div class="accordion-panel"><div class="calendario" id="lab3"></div></div>
-
-        <button class="accordion-btn">Laboratorio 4</button>
-        <div class="accordion-panel"><div class="calendario" id="lab4"></div></div>
-      </div>
-    </section>
-
-    <!-- USOS MÚLTIPLES -->
-    <section id="usos" class="tab-content">
-      <h2>Salón de Usos Múltiples</h2>
-      <div class="calendario" id="usosMultiples"></div>
-    </section>
-
-    <footer>
-      <p>Contacto: <a href="https://instagram.com/Poolkiin" target="_blank">@Poolkiin</a></p>
-    </footer>
-  </main>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
