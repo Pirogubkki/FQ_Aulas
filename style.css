@@ -3,7 +3,6 @@ body {
   margin: 0;
   background: #fcfcfb;
 }
-
 .main-header {
   text-align: center;
   margin-top: 18px;
@@ -14,7 +13,6 @@ body {
   font-weight: bold;
   color: #2d4b2e;
 }
-
 .open-sidebar-btn {
   position: absolute;
   top: 28px;
@@ -29,27 +27,43 @@ body {
   z-index: 1100;
   font-size: 1em;
 }
-
-.sidebar {
+.sidebar-bg {
   display: none;
   position: fixed;
-  top: 0; right: 0;
-  width: 300px; height: 100%;
-  background: #f5f5f5;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
-  padding: 30px 20px 20px 20px;
-  z-index: 1000;
-  overflow-y: auto;
+  z-index: 2000;
+  top:0; left:0; width:100vw; height:100vh;
+  background: rgba(40,40,40,0.3);
+  justify-content: center;
+  align-items: center;
 }
-.sidebar.active { display: block; }
+.sidebar-bg.active { display: flex; }
+.sidebar {
+  background: #f9f9f9;
+  box-shadow: 0 4px 32px #0002;
+  border-radius: 16px;
+  padding: 28px 26px 24px 26px;
+  min-width: 320px;
+  max-width: 94vw;
+  max-height: 96vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  animation: popup 0.16s;
+}
+@keyframes popup {
+  0% { transform:scale(0.95); opacity:.4; }
+  100% { transform:scale(1); opacity:1; }
+}
 .close-btn {
+  position: absolute; right: 10px; top: 10px;
+  font-size: 1.45em;
   background: none;
   border: none;
-  font-size: 1.5em;
-  position: absolute; right: 10px; top: 10px;
+  color: #8cc38a;
   cursor: pointer;
 }
-
 .leyenda {
   display: flex;
   gap: 20px;
@@ -63,39 +77,50 @@ body {
   border-radius: 4px;
   border: 1px solid #aaa;
 }
-.cuadro.verde {
-  background: rgba(140, 195, 138, 0.7);
+.cuadro.verde { background: rgba(140, 195, 138, 0.7); }
+.cuadro.rosa { background: rgba(240, 90, 170, 0.7); }
+.accordion-group {
+  margin-top: 18px;
+  margin-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.cuadro.rosa {
-  background: rgba(240, 90, 170, 0.7);
-}
-
-.tabs {
-  margin-top: 20px;
-  margin-left: 16px;
-}
-.tabs button {
-  padding: 8px 18px;
-  border: none;
+.accordion {
   background: #eee;
   color: #333;
   cursor: pointer;
-  border-radius: 6px 6px 0 0;
-  margin-right: 4px;
+  padding: 12px 20px;
+  width: 220px;
+  border: none;
+  border-radius: 7px;
+  text-align: left;
+  outline: none;
   font-size: 17px;
+  transition: background 0.13s;
+  margin-bottom: 0;
 }
-.tabs button.active {
+.accordion.active,
+.accordion:hover {
   background: #8cc38a;
   color: white;
 }
-.submenu-salones {
-  margin: 18px 0;
-  padding-left: 12px;
+.panel {
+  margin-bottom: 4px;
+  display: none;
+  overflow: hidden;
+  padding: 0 16px 4px 18px;
+}
+.panel.active {
+  display: block;
+}
+.submenu-salones, .submenu-labs {
+  margin: 12px 0 10px 0;
   flex-wrap: wrap;
   display: flex;
   gap: 7px;
 }
-.submenu-salones button {
+.submenu-salones button, .submenu-labs button {
   margin-bottom: 7px;
   padding: 7px 18px;
   border-radius: 6px;
@@ -105,14 +130,13 @@ body {
   cursor: pointer;
   font-size: 16px;
 }
-.submenu-salones button.active {
+.submenu-salones button.active, .submenu-labs button.active {
   background: #8cc38a;
   color: white;
 }
-
 .horario-tabla {
   overflow-x: auto;
-  margin: 0 16px 32px 16px;
+  margin: 0 16px 32px 0;
   background: #fafaf8;
   border-radius: 12px;
   box-shadow: 0 2px 12px #0001;
@@ -143,8 +167,6 @@ body {
   height: 36px;
   background: #fff;
 }
-
-/* Bloques de clase en horario */
 .bloque-clase {
   position: absolute;
   left: 2px; right: 2px; top: 2px; bottom: 2px;
