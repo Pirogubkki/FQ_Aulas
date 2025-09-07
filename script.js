@@ -1,3 +1,20 @@
+// Tabs logic
+function openTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+  document.querySelector('.tabs button[data-tab="'+tabName+'"]').classList.add('active');
+}
+
+// Sidebar logic
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('active');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('active');
+}
+
+// Configuración de horario en bloques de 30 minutos
 const DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 const H_INICIO = 8, H_FIN = 20; // 8am to 8pm
 
