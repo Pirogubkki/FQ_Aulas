@@ -1,146 +1,92 @@
-/* Fuente general */
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
   display: flex;
-  background: #f8f9fc;
-  color: #333;
+  min-height: 100vh;
+  background: #f9f9fb;
 }
 
 /* Sidebar */
 .sidebar {
-  width: 300px;
-  background: linear-gradient(180deg, #0056b3, #007bff);
-  color: white;
-  padding: 20px;
-  height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
+  width: 280px;
+  height: 100%;
+  background: #1e293b;
+  color: white;
+  padding: 20px;
   overflow-y: auto;
-  box-shadow: 3px 0 8px rgba(0,0,0,0.2);
 }
-
-.sidebar h2 {
-  margin-bottom: 20px;
-  font-weight: 600;
-  text-align: center;
+.sidebar h2 { margin-bottom: 15px; }
+.sidebar label { display: block; margin-top: 10px; font-size: 14px; }
+.sidebar input, .sidebar select, .sidebar textarea {
+  width: 100%; padding: 8px; margin-top: 5px; border: none; border-radius: 6px;
 }
-
-.formulario label {
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.formulario input,
-.formulario select,
-.formulario textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: none;
-  font-size: 14px;
-}
-
-.formulario textarea {
-  resize: none;
-  height: 80px;
-}
-
-.formulario button {
+.sidebar button {
   margin-top: 15px;
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: none;
-  border-radius: 8px;
-  background: #ffc107;
-  color: #222;
-  font-weight: 600;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s;
 }
+.sidebar button:hover { background: #2563eb; }
 
-.formulario button:hover {
-  background: #ffca2c;
-}
-
-/* Contenido principal */
-.content {
-  margin-left: 320px;
+/* Main */
+main {
+  margin-left: 300px;
   padding: 20px;
   flex: 1;
 }
-
-.content h1 {
+main h1 {
   font-size: 28px;
-  font-weight: 600;
   margin-bottom: 20px;
+  color: #111827;
 }
 
-/* Pestañas de salones */
-#tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
+/* Horario */
+.horario { margin-bottom: 40px; }
+.calendario {
+  display: grid;
+  grid-template-columns: 100px repeat(5, 1fr);
+  border: 1px solid #e5e7eb;
+}
+.calendario div {
+  border: 1px solid #e5e7eb;
+  padding: 4px;
+  position: relative;
+}
+.calendario .hora {
+  text-align: right;
+  padding-right: 8px;
+  background: #f3f4f6;
+  font-size: 12px;
 }
 
-#tabs button {
-  padding: 10px 14px;
-  border: none;
-  background: #e9ecef;
-  cursor: pointer;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-#tabs button:hover {
-  background: #d6e4ff;
-}
-
-#tabs button.active {
-  background: #007bff;
+/* Clases */
+.clase {
+  position: absolute;
+  left: 0; right: 0;
+  margin: 2px;
+  border-radius: 6px;
+  padding: 4px;
   color: white;
-  font-weight: 600;
-}
-
-/* Calendario */
-#calendar {
-  border-radius: 10px;
+  font-size: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  background: white;
 }
+.clase:nth-child(odd) { background: #3b82f6; }
+.clase:nth-child(even) { background: #10b981; }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 850px;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
+/* Footer */
+footer {
+  margin-top: 50px;
   text-align: center;
   font-size: 14px;
+  color: #6b7280;
 }
-
-th {
-  background: #007bff;
-  color: white;
-  font-weight: 600;
-}
-
-td {
-  background: #fdfdfd;
-}
-
-td:not(:empty) {
-  background: #e8f2ff;
-  font-weight: 500;
-  border-left: 3px solid #007bff;
-}
+footer a { color: #3b82f6; text-decoration: none; }
