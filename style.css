@@ -37,45 +37,56 @@ header.main-header h1 {
   margin-top: 20px;
 }
 .sidebar-lateral {
-  width: 235px;
+  width: 270px;
   background: #f6f6f4;
   border-right: 1.5px solid #e0e0e0;
-  padding: 22px 12px 12px 12px;
+  padding: 22px 10px 10px 10px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
   min-height: 500px;
+  gap: 12px;
 }
-.sidebar-section {
-  margin-bottom: 22px;
+.tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 14px;
 }
-.sidebar-title {
-  font-weight: bold;
-  margin-bottom: 8px;
+.tab-btn {
+  flex: 1;
+  padding: 8px 0;
+  background: #eaf4ea;
+  border: 1px solid #8cc38a;
+  border-radius: 8px 8px 0 0;
+  font-size: 16px;
   color: #2d4b2e;
-  font-size: 1.12em;
-  margin-top: 8px;
+  cursor: pointer;
+  transition: background .16s, color .16s;
+  outline: none;
 }
-#lista-salones, #lista-laboratorios, #lista-usos {
+.tab-btn.active, .tab-btn:hover {
+  background: #8cc38a;
+  color: #fff;
+  border-bottom: 2px solid #2d4b2e;
+}
+.submenu {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+  margin-top: 5px;
 }
-.sidebar-btn {
-  background: #eaf4ea;
-  border: 1px solid #8cc38a;
+.submenu button {
+  background: #f5fff6;
+  border: 1.3px solid #8cc38a;
   color: #2d4b2e;
-  border-radius: 6px;
-  padding: 9px 8px;
+  border-radius: 7px;
+  padding: 7px 8px;
   cursor: pointer;
   font-size: 15px;
   text-align: left;
   transition: background .16s, color .16s;
-  margin-bottom: 3px;
 }
-.sidebar-btn.active,
-.sidebar-btn:hover {
+.submenu button.active, .submenu button:hover {
   background: #8cc38a;
   color: #fff;
 }
