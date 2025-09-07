@@ -6,6 +6,13 @@
       { "materia": "Normatividad y legislación", "inicio": "10:00", "fin": "11:30" },
       { "materia": "Química bioorgánica", "inicio": "15:00", "fin": "16:30" },
       { "materia": "Biología celular y molecular", "inicio": "16:30", "fin": "18:00" }
+      { "materia": "Clase extraordinaria",
+      "inicio": "19:00",
+      "fin": "20:00",
+      "tipo": "extraordinaria",
+      "comentario": "Termina el 1 de octubre"
+    }
+  ],
     ],
     "Martes": [
       { "materia": "Física e introducción a la fisicoquímica", "inicio": "08:00", "fin": "10:00" },
