@@ -59,21 +59,23 @@ header.main-header h1 {
 #lista-salones, #lista-laboratorios, #lista-usos {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 7px;
+  margin-bottom: 16px;
 }
-.sidebar-lateral button {
+.sidebar-btn {
   background: #eaf4ea;
   border: 1px solid #8cc38a;
   color: #2d4b2e;
   border-radius: 6px;
-  padding: 7px 8px;
+  padding: 9px 8px;
   cursor: pointer;
   font-size: 15px;
   text-align: left;
   transition: background .16s, color .16s;
+  margin-bottom: 3px;
 }
-.sidebar-lateral button.active,
-.sidebar-lateral button:hover {
+.sidebar-btn.active,
+.sidebar-btn:hover {
   background: #8cc38a;
   color: #fff;
 }
