@@ -144,7 +144,6 @@ body {
   background: #fff;
 }
 
-/* Bloques de clase en horario */
 .bloque-clase {
   position: absolute;
   left: 2px; right: 2px; top: 2px; bottom: 2px;
