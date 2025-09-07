@@ -13,7 +13,6 @@
       "comentario": "Termina el 1 de octubre"
     }
   ],
-    ],
     "Martes": [
       { "materia": "Física e introducción a la fisicoquímica", "inicio": "08:00", "fin": "10:00" },
       { "materia": "Química general y bioinorgánica", "inicio": "10:30", "fin": "12:30" },
