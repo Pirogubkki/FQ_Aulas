@@ -1,5 +1,6 @@
 {
   "Salón 1": {
+    "capacidad": 40,
     "Lunes": [
       { "materia": "Matemáticas para químicos", "inicio": "08:00", "fin": "10:00" },
       { "materia": "Normatividad y legislación", "inicio": "10:00", "fin": "11:30" },
