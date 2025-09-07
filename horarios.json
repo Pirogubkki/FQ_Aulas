@@ -344,4 +344,33 @@
       { "materia": "Laboratorio de química biológica", "inicio": "15:00", "fin": "20:00" }
     ]
   }
-}
+},
+{
+  "Usos Múltiples": {
+    "Lunes": [
+      { "materia": "Inmunología", "inicio": "08:00", "fin": "09:30" },
+      { "materia": "Toxicología", "inicio": "09:30", "fin": "11:30" },
+      { "materia": "Parasitología", "inicio": "11:30", "fin": "13:00" },
+      { "materia": "Genética", "inicio": "13:00", "fin": "14:30" },
+      { "materia": "Laboratorio de hematología Clínica", "inicio": "17:00", "fin": "20:00" }
+    ],
+    "Martes": [
+      { "materia": "Química de compuestos aromáticos y heterociclicos", "inicio": "08:00", "fin": "10:00" },
+      { "materia": "Electromagnetismo y óptica", "inicio": "10:00", "fin": "11:30" },
+      { "materia": "Química analítica cuantitativa", "inicio": "12:00", "fin": "14:00" },
+      { "materia": "Fisiología y patología humana", "inicio": "17:00", "fin": "19:00" }
+    ],
+    "Miércoles": [
+      { "materia": "Genética", "inicio": "13:00", "fin": "14:30" }
+    ],
+    "Jueves": [
+      { "materia": "Electromagnetismo y óptica", "inicio": "10:00", "fin": "11:30" },
+      { "materia": "Inmunología", "inicio": "11:30", "fin": "13:00" }
+    ],
+    "Viernes": [
+      { "materia": "Micología y virología", "inicio": "09:30", "fin": "11:00" },
+      { "materia": "Parasitología", "inicio": "11:00", "fin": "12:30" },
+      { "materia": "Análisis instrumental", "inicio": "15:00", "fin": "17:00" },
+      { "materia": "Fisiología y patología humana", "inicio": "17:00", "fin": "19:00" }
+    ]
+  }
