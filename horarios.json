@@ -48,5 +48,20 @@
       {"materia": "Parasitología", "inicio": "11:00", "fin": "12:30"}
     ],
     "Viernes": []
-  }
+  },
+  "Salón 3": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 4": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 5": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 6": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 7": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 8": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 9": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 10": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 11": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 12": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 13": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 14": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 15": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 16": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] },
+  "Salón 17": { "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": [] }
 }
