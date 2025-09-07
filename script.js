@@ -2,52 +2,36 @@ const dias = ["Lunes","Martes","Miércoles","Jueves","Viernes"];
 const horas = Array.from({length:13},(_,i)=>8+i); // 8:00 - 20:00
 
 let horariosJSON = null;
+let botonActivo = null;
 
-// Tabs
-function openTab(tabName) {
-  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
-  document.getElementById(tabName).classList.add("active");
-
-  document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
-  document.querySelector(`.tabs button[data-tab='${tabName}']`).classList.add("active");
-}
-
-// Render botones de selección (salones/laboratorios/usos)
-function renderSelectors(horarios) {
+function renderSidebarButtons(horarios) {
   // Salones
-  const selectorSalones = document.getElementById('selector-salones');
-  selectorSalones.innerHTML = '';
-  Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('salón')).forEach(nombre => {
+  const salones = Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('salón'));
+  const labs = Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('laboratorio'));
+  const usos = Object.keys(horarios).filter(k=>k.toLowerCase().includes('usos'));
+  const divSal = document.getElementById('lista-salones');
+  const divLab = document.getElementById('lista-laboratorios');
+  const divUsos = document.getElementById('lista-usos');
+  divSal.innerHTML = ""; divLab.innerHTML = ""; divUsos.innerHTML = "";
+  salones.forEach(nombre => {
     const btn = document.createElement('button');
     btn.textContent = nombre;
-    btn.onclick = () => mostrarHorarioSalon(nombre);
-    selectorSalones.appendChild(btn);
+    btn.onclick = ()=>selectEspacio(nombre, btn);
+    divSal.appendChild(btn);
   });
-
-  // Laboratorios
-  const selectorLabs = document.getElementById('selector-laboratorios');
-  selectorLabs.innerHTML = '';
-  Object.keys(horarios).filter(k=>k.toLowerCase().startsWith('laboratorio')).forEach(nombre => {
+  labs.forEach(nombre => {
     const btn = document.createElement('button');
     btn.textContent = nombre;
-    btn.onclick = () => mostrarHorarioLaboratorio(nombre);
-    selectorLabs.appendChild(btn);
+    btn.onclick = ()=>selectEspacio(nombre, btn);
+    divLab.appendChild(btn);
   });
-
-  // Usos múltiples (uno solo)
-  const selectorUsos = document.getElementById('selector-usos');
-  selectorUsos.innerHTML = '';
-  ['Usos Múltiples','Salón de Usos Múltiples','Usos multiples'].forEach(nombre => {
-    if (horarios[nombre]) {
-      const btn = document.createElement('button');
-      btn.textContent = nombre;
-      btn.onclick = () => mostrarHorarioUsos(nombre);
-      selectorUsos.appendChild(btn);
-    }
+  usos.forEach(nombre => {
+    const btn = document.createElement('button');
+    btn.textContent = nombre;
+    btn.onclick = ()=>selectEspacio(nombre, btn);
+    divUsos.appendChild(btn);
   });
 }
-
-// Mostrar horarios
 function convertirADatosEventos(nombre, horariosSalon) {
   const eventos = [];
   dias.forEach(dia => {
@@ -64,26 +48,33 @@ function convertirADatosEventos(nombre, horariosSalon) {
   });
   return eventos;
 }
-
-function renderCalendario(id, data) {
+function renderCalendario(id, data, nombre) {
   const cont = document.getElementById(id);
   cont.innerHTML = "";
-  cont.className = "calendario";
-  cont.appendChild(document.createElement("div"));
+  cont.className = "horario-container";
+  // Titulo
+  const tit = document.createElement("h2");
+  tit.textContent = nombre;
+  cont.appendChild(tit);
+  // Tabla
+  const cal = document.createElement("div");
+  cal.className = "calendario";
+  cont.appendChild(cal);
+  cal.appendChild(document.createElement("div"));
   dias.forEach(d => {
     const diaHead = document.createElement("div");
     diaHead.textContent = d;
     diaHead.className = "dia-header";
-    cont.appendChild(diaHead);
+    cal.appendChild(diaHead);
   });
   horas.forEach(h => {
     const horaDiv = document.createElement("div");
     horaDiv.textContent = `${h}:00`;
     horaDiv.className = "hora";
-    cont.appendChild(horaDiv);
+    cal.appendChild(horaDiv);
     dias.forEach(() => {
       const celda = document.createElement("div");
-      cont.appendChild(celda);
+      cal.appendChild(celda);
     });
   });
   data.forEach((ev, idx) => {
@@ -97,29 +88,51 @@ function renderCalendario(id, data) {
     evento.style.gridColumn = diaIndex;
     evento.style.gridRow = `${rowStart} / span ${duration}`;
     evento.textContent = ev.materia;
-    cont.appendChild(evento);
+    cal.appendChild(evento);
   });
 }
+function selectEspacio(nombre, btn) {
+  if(botonActivo) botonActivo.classList.remove('active');
+  btn.classList.add('active');
+  botonActivo = btn;
+  const eventos = convertirADatosEventos(nombre, horariosJSON[nombre]);
+  renderCalendario('horario-espacio', eventos, nombre);
+}
 
-function mostrarHorarioSalon(nombre) {
-  const div = document.getElementById('horario-salon');
-  const eventos = convertirADatosEventos(nombre, horariosJSON[nombre]);
-  renderCalendario('horario-salon', eventos);
-}
-function mostrarHorarioLaboratorio(nombre) {
-  const div = document.getElementById('horario-laboratorio');
-  const eventos = convertirADatosEventos(nombre, horariosJSON[nombre]);
-  renderCalendario('horario-laboratorio', eventos);
-}
-function mostrarHorarioUsos(nombre) {
-  const div = document.getElementById('horario-usos');
-  const eventos = convertirADatosEventos(nombre, horariosJSON[nombre]);
-  renderCalendario('horario-usos', eventos);
+// Formulario
+const form = document.getElementById("my-form");
+if(form){
+  async function handleSubmit(event) {
+    event.preventDefault();
+    var status = document.getElementById("my-form-status");
+    var data = new FormData(event.target);
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        status.innerHTML = "¡Gracias por tu solicitud!";
+        form.reset()
+      } else {
+        response.json().then(data => {
+          if (Object.hasOwn(data, 'errors')) {
+            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+          } else {
+            status.innerHTML = "Oops! Hubo un problema al enviar tu formulario"
+          }
+        })
+      }
+    }).catch(error => {
+      status.innerHTML = "Oops! Hubo un problema al enviar tu formulario"
+    });
+  }
+  form.addEventListener("submit", handleSubmit)
 }
 
 fetch('horarios.json')
   .then(r=>r.json())
   .then(data=>{
     horariosJSON = data;
-    renderSelectors(horariosJSON);
+    renderSidebarButtons(horariosJSON);
   });
