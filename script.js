@@ -1,82 +1,48 @@
-const dias = ["Lunes","Martes","Miércoles","Jueves","Viernes"];
-const horas = Array.from({length:13},(_,i)=>8+i); // 8:00 - 20:00
-
-// Función para renderizar un calendario
-function renderCalendario(id, data) {
-  const cont = document.getElementById(id);
-  if(!cont) return;
-
-  cont.innerHTML = "";
-  cont.className = "calendario";
-
-  // Celda vacía arriba izquierda
-  cont.appendChild(document.createElement("div"));
-
-  // Encabezados de días
-  dias.forEach(d => {
-    const diaHead = document.createElement("div");
-    diaHead.textContent = d;
-    diaHead.className = "dia-header";
-    cont.appendChild(diaHead);
-  });
-
-  // Filas de horas
-  horas.forEach(h => {
-    // Columna de hora
-    const horaDiv = document.createElement("div");
-    horaDiv.textContent = `${h}:00`;
-    horaDiv.className = "hora";
-    cont.appendChild(horaDiv);
-
-    // Celdas vacías
-    dias.forEach(() => {
-      const celda = document.createElement("div");
-      cont.appendChild(celda);
-    });
-  });
-
-  // Render de eventos
-  data.forEach((ev, idx) => {
-    const diaIndex = dias.indexOf(ev.dia) + 2; // col (1=hora, 2-6=días)
-    const inicio = parseFloat(ev.inicio.replace(":30",".5").replace(":00",".0"));
-    const fin = parseFloat(ev.fin.replace(":30",".5").replace(":00",".0"));
-
-    const rowStart = Math.floor((inicio-8)*2)+2; 
-    const duration = (fin - inicio)*2;
-
-    const evento = document.createElement("div");
-    evento.className = `evento color-${(idx % 5)+1}`;
-    evento.style.gridColumn = diaIndex;
-    evento.style.gridRow = `${rowStart} / span ${duration}`;
-    evento.textContent = ev.materia;
-
-    cont.appendChild(evento);
-  });
-}
-
-// Ejemplo de datos
-const salon1 = [
-  {dia:"Lunes", inicio:"08:00", fin:"10:00", materia:"Matemáticas para químicos"},
-  {dia:"Lunes", inicio:"10:00", fin:"11:30", materia:"Normatividad y legislación"},
-  {dia:"Martes", inicio:"08:00", fin:"10:00", materia:"Física e introducción a la fisicoquímica"},
-  {dia:"Viernes", inicio:"16:00", fin:"18:30", materia:"Análisis químico"},
-];
-
-const salon2 = [
-  {dia:"Lunes", inicio:"09:30", fin:"11:30", materia:"Toxicología"},
-  {dia:"Lunes", inicio:"12:00", fin:"13:30", materia:"Síntesis de Fármacos"},
-  {dia:"Miércoles", inicio:"15:00", fin:"18:00", materia:"Laboratorio de hematología Clínica"},
-];
-
-// Render
-renderCalendario("cal-salon1", salon1);
-renderCalendario("cal-salon2", salon2);
-
-// Tabs
+// Para las tabs
 function openTab(tabName) {
-  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
-  document.getElementById(tabName).classList.add("active");
-
-  document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
-  document.querySelector(`.tabs button[data-tab='${tabName}']`).classList.add("active");
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+  document.querySelector('.tabs button[data-tab="'+tabName+'"]').classList.add('active');
 }
+
+// Sidebar
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('active');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('active');
+}
+
+// Ejemplo de datos ordenados de clases
+const clasesSalon1 = [
+  { hora: '08:00-10:00', nombre: 'Matemáticas I', tipo: 'semestral' },
+  { hora: '10:00-12:00', nombre: 'Física I', tipo: 'extraordinaria' },
+  { hora: '12:00-14:00', nombre: 'Química I', tipo: 'semestral' }
+];
+
+const clasesSalon2 = [
+  { hora: '09:00-11:00', nombre: 'Inglés', tipo: 'semestral' },
+  { hora: '11:00-13:00', nombre: 'Programación', tipo: 'extraordinaria' },
+  { hora: '13:00-15:00', nombre: 'Biología', tipo: 'semestral' }
+];
+
+// Renderizar clases ordenadas
+function renderClases(idDiv, clases) {
+  const cont = document.getElementById(idDiv);
+  cont.innerHTML = '';
+  // Ordenar por hora (opcional, si tus datos ya están ordenados puedes omitir)
+  clases.sort((a,b) => a.hora.localeCompare(b.hora)); 
+  clases.forEach(clase => {
+    const div = document.createElement('div');
+    div.className = 'clase' + (clase.tipo === 'extraordinaria' ? ' extraordinaria' : '');
+    div.innerHTML = `<b>${clase.nombre}</b><br><span>${clase.hora}</span>`;
+    cont.appendChild(div);
+  });
+}
+
+// Inicializar al cargar
+window.onload = function() {
+  renderClases('cal-salon1', clasesSalon1);
+  renderClases('cal-salon2', clasesSalon2);
+};
