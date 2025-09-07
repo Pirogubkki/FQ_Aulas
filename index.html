@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Horarios de los salones agosto-diciembre 2025</title>
@@ -19,38 +19,34 @@
   </header>
   <div class="contenido-main">
     <aside class="sidebar-lateral" id="sidebar-lateral">
-      <div class="sidebar-section">
-        <div class="sidebar-title">Salones</div>
-        <div id="lista-salones"></div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="salones" onclick="openTab('salones')">Salones</button>
+        <button class="tab-btn" data-tab="laboratorios" onclick="openTab('laboratorios')">Laboratorios</button>
+        <button class="tab-btn" data-tab="usos" onclick="openTab('usos')">Salón de Usos Múltiples</button>
       </div>
-      <div class="sidebar-section">
-        <div class="sidebar-title">Laboratorios</div>
-        <div id="lista-laboratorios"></div>
-      </div>
-      <div class="sidebar-section">
-        <div class="sidebar-title">Salón de Usos Múltiples</div>
-        <div id="lista-usos"></div>
-      </div>
+      <div class="submenu" id="submenu-salones"></div>
+      <div class="submenu" id="submenu-laboratorios" style="display:none"></div>
+      <div class="submenu" id="submenu-usos" style="display:none"></div>
     </aside>
     <main class="horario-main">
       <div id="horario-espacio" class="horario-container">
-        <p style="color:#888; text-align:center; margin-top:40px;">Selecciona un espacio en la barra lateral.</p>
+        <p style="color:#888; text-align:center; margin-top:40px;">Select a space from the submenu.</p>
       </div>
     </main>
     <aside class="sidebar-form" id="formulario">
-      <h2>Apartar un salón</h2>
+      <h2>Book a room</h2>
       <form id="my-form" action="https://formspree.io/f/meolvgrk" method="POST">
         <label>Email:</label>
         <input type="email" name="email" required />
-        <label>Mensaje:</label>
+        <label>Message:</label>
         <input type="text" name="message" required />
-        <button id="my-form-button" type="submit">Enviar</button>
+        <button id="my-form-button" type="submit">Send</button>
         <p id="my-form-status"></p>
       </form>
     </aside>
   </div>
   <footer>
-    Contacto: Instagram <b>@Poolkiin</b>
+    Contact: Instagram <b>@Poolkiin</b>
   </footer>
   <script src="script.js"></script>
 </body>
