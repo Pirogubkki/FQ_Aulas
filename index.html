@@ -3,55 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horarios de Salones</title>
+  <title>Calendario de Horarios</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Sidebar -->
   <aside class="sidebar">
-    <h2>Solicitud de Salón</h2>
+    <h2>Solicitud de Espacio</h2>
     <form action="https://formspree.io/f/mnqedzkp" method="POST">
       <label>Nombre:</label>
       <input type="text" name="nombre" required>
-
       <label>Correo:</label>
       <input type="email" name="email" required>
-
-      <label>Salón:</label>
-      <select name="salon" required>
+      <label>Espacio:</label>
+      <select name="espacio" required>
         <option value="">Seleccione...</option>
-        <option>Salón 1</option>
-        <option>Salón 2</option>
-        <option>Salón 3</option>
-        <!-- hasta el 17 -->
-        <option>Salón 17</option>
+        <optgroup label="Salones">
+          <option>Salón 1</option><option>Salón 2</option><option>Salón 3</option>
+          <option>Salón 4</option><option>Salón 5</option><option>Salón 6</option>
+          <option>Salón 7</option><option>Salón 8</option><option>Salón 9</option>
+          <option>Salón 10</option><option>Salón 11</option><option>Salón 12</option>
+        </optgroup>
+        <optgroup label="Laboratorios">
+          <option>Laboratorio 1</option><option>Laboratorio 2</option>
+          <option>Laboratorio 3</option><option>Laboratorio 4</option>
+        </optgroup>
+        <optgroup label="Uso Múltiple">
+          <option>Salón de Usos Múltiples</option>
+        </optgroup>
       </select>
-
       <label>Fecha y Hora:</label>
       <input type="datetime-local" name="fecha" required>
-
       <label>Comentarios:</label>
       <textarea name="comentarios"></textarea>
-
       <button type="submit">Enviar solicitud</button>
     </form>
   </aside>
 
-  <!-- Contenido principal -->
+  <!-- Main -->
   <main>
-    <h1>Horarios de los Salones</h1>
+    <header>
+      <button class="tab active" data-tab="salones">Salones</button>
+      <button class="tab" data-tab="laboratorios">Laboratorios</button>
+      <button class="tab" data-tab="usos">Usos Múltiples</button>
+    </header>
 
-    <section class="horario">
-      <h2>Salón 1</h2>
-      <div class="calendario" id="salon1"></div>
+    <section id="salones" class="tab-content active">
+      <h2>Salones</h2>
+      <div class="accordion">
+        <button class="accordion-btn">Salón 1</button>
+        <div class="accordion-panel">
+          <div class="calendario" id="salon1"></div>
+        </div>
+        <button class="accordion-btn">Salón 2</button>
+        <div class="accordion-panel">
+          <div class="calendario" id="salon2"></div>
+        </div>
+        <!-- hasta Salón 12 -->
+      </div>
     </section>
 
-    <section class="horario">
-      <h2>Salón 2</h2>
-      <div class="calendario" id="salon2"></div>
+    <section id="laboratorios" class="tab-content">
+      <h2>Laboratorios</h2>
+      <div class="accordion">
+        <button class="accordion-btn">Laboratorio 1</button>
+        <div class="accordion-panel"><div class="calendario" id="lab1"></div></div>
+        <button class="accordion-btn">Laboratorio 2</button>
+        <div class="accordion-panel"><div class="calendario" id="lab2"></div></div>
+      </div>
     </section>
 
-    <!-- Footer -->
+    <section id="usos" class="tab-content">
+      <h2>Salón de Usos Múltiples</h2>
+      <div class="calendario" id="usosMultiples"></div>
+    </section>
+
     <footer>
       <p>Contacto: <a href="https://instagram.com/Poolkiin" target="_blank">@Poolkiin</a></p>
     </footer>
