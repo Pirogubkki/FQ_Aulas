@@ -7,6 +7,31 @@
 </head>
 <body>
 
+<!-- Sidebar para Formulario -->
+<div id="sidebar" class="sidebar">
+  <button class="close-btn" onclick="closeSidebar()">×</button>
+  <h2>Apartar un salón</h2>
+  <form action="https://formspree.io/f/{TU_CODIGO}" method="POST">
+    <label>Nombre:<br><input type="text" name="nombre" required></label><br><br>
+    <label>Correo:<br><input type="email" name="correo" required></label><br><br>
+    <label>Fecha y hora:<br><input type="datetime-local" name="fecha" required></label><br><br>
+    <label>Salón:<br><input type="text" name="salon" required></label><br><br>
+    <label>Motivo:<br><textarea name="motivo" required></textarea></label><br><br>
+    <button type="submit">Enviar solicitud</button>
+  </form>
+</div>
+<button class="open-sidebar-btn" onclick="openSidebar()">Solicitar espacio</button>
+
+<!-- Leyenda de colores -->
+<div class="leyenda">
+  <div class="leyenda-item">
+    <span class="cuadro verde"></span> clase semestral
+  </div>
+  <div class="leyenda-item">
+    <span class="cuadro rosa"></span> clase extraordinaria
+  </div>
+</div>
+
 <div class="tabs">
   <button class="active" data-tab="salones" onclick="openTab('salones')">Salones</button>
   <button data-tab="laboratorios" onclick="openTab('laboratorios')">Laboratorios</button>
