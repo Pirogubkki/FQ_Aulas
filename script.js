@@ -1,54 +1,51 @@
-async function cargarHorarios() {
-  const resp = await fetch("horarios.json");
-  const data = await resp.json();
+const horarios = {
+  "salon1": [
+    { dia: "Lunes", materia: "Matemáticas para químicos", inicio: "08:00", fin: "10:00" },
+    { dia: "Lunes", materia: "Normatividad y legislación", inicio: "10:00", fin: "11:30" },
+    { dia: "Martes", materia: "Física e introducción a la fisicoquímica", inicio: "08:00", fin: "10:00" },
+    { dia: "Viernes", materia: "Química general y bioinorgánica", inicio: "10:30", fin: "12:30" }
+  ],
+  "salon2": [
+    { dia: "Lunes", materia: "Toxicología", inicio: "09:30", fin: "11:30" },
+    { dia: "Lunes", materia: "Síntesis de Fármacos", inicio: "12:00", fin: "13:30" },
+    { dia: "Miércoles", materia: "Laboratorio de hematología Clínica", inicio: "15:00", fin: "18:00" }
+  ]
+};
 
-  const tabs = document.getElementById("tabs");
-  const calendar = document.getElementById("calendar");
+const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+const horas = Array.from({ length: 12 }, (_, i) => 8 + i); // 8 a 20
 
-  // Crear pestañas para cada salón
-  Object.keys(data).forEach((salon, idx) => {
-    const btn = document.createElement("button");
-    btn.textContent = salon;
-    btn.onclick = () => mostrarHorario(salon, data[salon]);
-    if (idx === 0) btn.classList.add("active");
-    tabs.appendChild(btn);
+function renderHorario(id, data) {
+  const cont = document.getElementById(id);
+
+  // Encabezado
+  cont.innerHTML = `<div></div>${dias.map(d => `<div>${d}</div>`).join("")}`;
+
+  // Filas por hora
+  horas.forEach(h => {
+    cont.innerHTML += `<div class="hora">${h}:00</div>` +
+      dias.map(() => `<div></div>`).join("");
   });
 
-  // Mostrar el primero por defecto
-  mostrarHorario(Object.keys(data)[0], data[Object.keys(data)[0]]);
+  // Posicionar clases
+  data.forEach(clase => {
+    const diaIndex = dias.indexOf(clase.dia) + 1;
+    const inicio = parseFloat(clase.inicio.replace(":", ".").replace("30", ".5"));
+    const fin = parseFloat(clase.fin.replace(":", ".").replace("30", ".5"));
+    const duracion = fin - inicio;
+
+    const top = (inicio - 8) * 40; // 40px por hora
+    const height = duracion * 40;
+
+    const celda = cont.querySelector(`.calendario > div:nth-child(${diaIndex + 1})`);
+    const claseDiv = document.createElement("div");
+    claseDiv.className = "clase";
+    claseDiv.style.top = `${top}px`;
+    claseDiv.style.height = `${height}px`;
+    claseDiv.textContent = clase.materia;
+    celda.appendChild(claseDiv);
+  });
 }
 
-function mostrarHorario(salon, horarios) {
-  document.querySelectorAll("#tabs button").forEach(b => b.classList.remove("active"));
-  [...document.querySelectorAll("#tabs button")].find(b => b.textContent === salon).classList.add("active");
-
-  let html = `<h2>${salon}</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Hora</th>
-        <th>Lunes</th>
-        <th>Martes</th>
-        <th>Miércoles</th>
-        <th>Jueves</th>
-        <th>Viernes</th>
-      </tr>
-    </thead>
-    <tbody>`;
-
-  // Horas de 08:00 a 20:00
-  for (let h = 8; h < 20; h++) {
-    const horaStr = `${String(h).padStart(2,"0")}:00`;
-    html += `<tr><td>${horaStr}</td>`;
-    ["Lunes","Martes","Miércoles","Jueves","Viernes"].forEach(dia => {
-      const clase = horarios[dia]?.find(c => c.inicio === horaStr);
-      html += `<td>${clase ? `<strong>${clase.materia}</strong><br>${clase.inicio} - ${clase.fin}` : ""}</td>`;
-    });
-    html += "</tr>";
-  }
-
-  html += "</tbody></table>";
-  document.getElementById("calendar").innerHTML = html;
-}
-
-cargarHorarios();
+renderHorario("salon1", horarios.salon1);
+renderHorario("salon2", horarios.salon2);
