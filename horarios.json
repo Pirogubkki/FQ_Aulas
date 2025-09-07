@@ -342,7 +342,8 @@
     ],
     "Viernes": [
       { "materia": "Laboratorio de química biológica", "inicio": "15:00", "fin": "20:00" }
-    ],
+      ]
+  },
   "Usos Múltiples": {
     "Lunes": [
       { "materia": "Inmunología", "inicio": "08:00", "fin": "09:30" },
@@ -370,6 +371,5 @@
       { "materia": "Análisis instrumental", "inicio": "15:00", "fin": "17:00" },
       { "materia": "Fisiología y patología humana", "inicio": "17:00", "fin": "19:00" }
     ]
-  }
   }
 }
