@@ -17,8 +17,22 @@
   <h1>Horarios de los salones agosto-diciembre 2025</h1>
 </header>
 
-<button class="open-sidebar-btn" onclick="openSidebar()">Solicitar espacio</button>
+<button class="open-modal-btn" onclick="openSolicitud()">Solicitar espacio</button>
 
+<div id="modal-solicitud-bg" class="modal-bg">
+  <div class="modal-solicitud">
+    <button class="close-modal-btn" onclick="closeSolicitud()">×</button>
+    <h2>Apartar un salón</h2>
+    <form id="my-form" action="https://formspree.io/f/meolvgrk" method="POST">
+      <label>Email:</label>
+      <input type="email" name="email" required />
+      <label>Mensaje:</label>
+      <input type="text" name="message" required />
+      <button type="submit">Enviar</button>
+      <p id="my-form-status"></p>
+    </form>
+  </div>
+</div>
 <div class="leyenda">
   <div class="leyenda-item">
     <span class="cuadro verde"></span> clase semestral
