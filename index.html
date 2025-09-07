@@ -11,6 +11,7 @@
   <aside class="sidebar">
     <h2>Solicitud de Espacio</h2>
     <form action="https://formspree.io/f/mnqedzkp" method="POST">
+      <input type="hidden" name="_replyto" value="hpoolgarcia@icloud.com">
       <label>Nombre:</label>
       <input type="text" name="nombre" required>
       <label>Correo:</label>
@@ -48,31 +49,68 @@
       <button class="tab" data-tab="usos">Usos Múltiples</button>
     </header>
 
+    <!-- SALONES -->
     <section id="salones" class="tab-content active">
       <h2>Salones</h2>
       <div class="accordion">
+        <!-- Generamos 12 -->
         <button class="accordion-btn">Salón 1</button>
-        <div class="accordion-panel">
-          <div class="calendario" id="salon1"></div>
-        </div>
+        <div class="accordion-panel"><div class="calendario" id="salon1"></div></div>
+
         <button class="accordion-btn">Salón 2</button>
-        <div class="accordion-panel">
-          <div class="calendario" id="salon2"></div>
-        </div>
-        <!-- hasta Salón 12 -->
+        <div class="accordion-panel"><div class="calendario" id="salon2"></div></div>
+
+        <button class="accordion-btn">Salón 3</button>
+        <div class="accordion-panel"><div class="calendario" id="salon3"></div></div>
+
+        <button class="accordion-btn">Salón 4</button>
+        <div class="accordion-panel"><div class="calendario" id="salon4"></div></div>
+
+        <button class="accordion-btn">Salón 5</button>
+        <div class="accordion-panel"><div class="calendario" id="salon5"></div></div>
+
+        <button class="accordion-btn">Salón 6</button>
+        <div class="accordion-panel"><div class="calendario" id="salon6"></div></div>
+
+        <button class="accordion-btn">Salón 7</button>
+        <div class="accordion-panel"><div class="calendario" id="salon7"></div></div>
+
+        <button class="accordion-btn">Salón 8</button>
+        <div class="accordion-panel"><div class="calendario" id="salon8"></div></div>
+
+        <button class="accordion-btn">Salón 9</button>
+        <div class="accordion-panel"><div class="calendario" id="salon9"></div></div>
+
+        <button class="accordion-btn">Salón 10</button>
+        <div class="accordion-panel"><div class="calendario" id="salon10"></div></div>
+
+        <button class="accordion-btn">Salón 11</button>
+        <div class="accordion-panel"><div class="calendario" id="salon11"></div></div>
+
+        <button class="accordion-btn">Salón 12</button>
+        <div class="accordion-panel"><div class="calendario" id="salon12"></div></div>
       </div>
     </section>
 
+    <!-- LABORATORIOS -->
     <section id="laboratorios" class="tab-content">
       <h2>Laboratorios</h2>
       <div class="accordion">
         <button class="accordion-btn">Laboratorio 1</button>
         <div class="accordion-panel"><div class="calendario" id="lab1"></div></div>
+
         <button class="accordion-btn">Laboratorio 2</button>
         <div class="accordion-panel"><div class="calendario" id="lab2"></div></div>
+
+        <button class="accordion-btn">Laboratorio 3</button>
+        <div class="accordion-panel"><div class="calendario" id="lab3"></div></div>
+
+        <button class="accordion-btn">Laboratorio 4</button>
+        <div class="accordion-panel"><div class="calendario" id="lab4"></div></div>
       </div>
     </section>
 
+    <!-- USOS MÚLTIPLES -->
     <section id="usos" class="tab-content">
       <h2>Salón de Usos Múltiples</h2>
       <div class="calendario" id="usosMultiples"></div>
