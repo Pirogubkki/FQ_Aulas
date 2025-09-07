@@ -1,31 +1,42 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const calendarEl = document.getElementById("calendar");
+async function cargarHorarios() {
+  const resp = await fetch("horarios.json");
+  const data = await resp.json();
 
-  // Ejemplo de eventos internos (sin JSON externo)
-  const eventos = [
-    {
-      title: "Clase de Química",
-      start: "2025-09-08T09:00:00",
-      end: "2025-09-08T11:00:00",
-      color: "#f87171",
-      salon: "Laboratorio 1"
-    },
-    {
-      title: "Laboratorio Biología",
-      start: "2025-09-09T13:00:00",
-      end: "2025-09-09T15:00:00",
-      color: "#34d399",
-      salon: "Laboratorio 2"
-    }
-  ];
+  const tabs = document.getElementById("tabs");
+  const calendar = document.getElementById("calendar");
 
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: "timeGridWeek",
-    locale: "es",
-    slotMinTime: "07:00:00",
-    slotMaxTime: "22:00:00",
-    events: eventos
+  // Crear pestañas para cada salón
+  Object.keys(data).forEach((salon, idx) => {
+    const btn = document.createElement("button");
+    btn.textContent = salon;
+    btn.onclick = () => mostrarHorario(salon, data[salon]);
+    if (idx === 0) btn.classList.add("active");
+    tabs.appendChild(btn);
   });
 
-  calendar.render();
-});
+  // Mostrar el primero por defecto
+  mostrarHorario(Object.keys(data)[0], data[Object.keys(data)[0]]);
+}
+
+function mostrarHorario(salon, horarios) {
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.remove("active"));
+  [...document.querySelectorAll("#tabs button")].find(b => b.textContent === salon).classList.add("active");
+
+  let html = `<h2>${salon}</h2><table><thead><tr><th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th></tr></thead><tbody>`;
+
+  // Horas de 08:00 a 20:00
+  for (let h = 8; h < 20; h++) {
+    const horaStr = `${String(h).padStart(2,"0")}:00`;
+    html += `<tr><td>${horaStr}</td>`;
+    ["Lunes","Martes","Miércoles","Jueves","Viernes"].forEach(dia => {
+      const clase = horarios[dia]?.find(c => c.inicio === horaStr);
+      html += `<td>${clase ? clase.materia + " (" + clase.inicio + "-" + clase.fin + ")" : ""}</td>`;
+    });
+    html += "</tr>";
+  }
+
+  html += "</tbody></table>";
+  document.getElementById("calendar").innerHTML = html;
+}
+
+cargarHorarios();
