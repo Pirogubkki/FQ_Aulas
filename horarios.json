@@ -1,0 +1,52 @@
+{
+  "Salón 1": {
+    "Lunes": [
+      {"materia": "Matemáticas para químicos", "inicio": "08:00", "fin": "10:00"},
+      {"materia": "Normatividad y legislación", "inicio": "10:00", "fin": "11:30"},
+      {"materia": "Química bioorgánica", "inicio": "15:00", "fin": "16:30"},
+      {"materia": "Biología celular y molecular", "inicio": "16:30", "fin": "18:00"}
+    ],
+    "Martes": [
+      {"materia": "Física e introducción a la fisicoquímica", "inicio": "08:00", "fin": "10:00"},
+      {"materia": "Química general y bioinorgánica", "inicio": "10:30", "fin": "12:30"},
+      {"materia": "Química ambiental", "inicio": "13:30", "fin": "15:00"},
+      {"materia": "Administración y gestión en ciencias de la salud", "inicio": "16:30", "fin": "18:30"}
+    ],
+    "Miércoles": [
+      {"materia": "Contexto de la profesión", "inicio": "08:00", "fin": "10:00"},
+      {"materia": "Química bioorgánica", "inicio": "15:00", "fin": "16:30"},
+      {"materia": "Análisis químico", "inicio": "16:30", "fin": "18:30"}
+    ],
+    "Jueves": [
+      {"materia": "Matemáticas para químicos", "inicio": "08:00", "fin": "10:00"},
+      {"materia": "Normatividad y legislación", "inicio": "10:00", "fin": "11:30"},
+      {"materia": "Química ambiental", "inicio": "13:30", "fin": "15:00"},
+      {"materia": "Biología celular y molecular", "inicio": "15:00", "fin": "16:30"},
+      {"materia": "Administración y gestión en ciencias de la salud", "inicio": "16:30", "fin": "18:30"}
+    ],
+    "Viernes": [
+      {"materia": "Física e introducción a la fisicoquímica", "inicio": "08:00", "fin": "10:00"},
+      {"materia": "Química general y bioinorgánica", "inicio": "10:30", "fin": "12:30"},
+      {"materia": "Análisis químico", "inicio": "16:00", "fin": "18:30"}
+    ]
+  },
+
+  "Salón 2": {
+    "Lunes": [
+      {"materia": "Toxicología", "inicio": "09:30", "fin": "11:30"},
+      {"materia": "Síntesis de Fármacos", "inicio": "12:00", "fin": "13:30"},
+      {"materia": "Laboratorio de hematología Clínica", "inicio": "15:00", "fin": "18:00"}
+    ],
+    "Martes": [
+      {"materia": "Parasitología", "inicio": "11:00", "fin": "12:30"}
+    ],
+    "Miércoles": [
+      {"materia": "Síntesis de Fármacos", "inicio": "12:00", "fin": "13:30"},
+      {"materia": "Laboratorio de hematología Clínica", "inicio": "15:00", "fin": "18:00"}
+    ],
+    "Jueves": [
+      {"materia": "Parasitología", "inicio": "11:00", "fin": "12:30"}
+    ],
+    "Viernes": []
+  }
+}
